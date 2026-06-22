@@ -4,6 +4,7 @@ import com.innowise.paymentservice.util.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,5 +28,10 @@ public class Payment {
     private LocalDateTime timestamp;
 
     @Column(name = "payment_amount")
-    private Long paymentAmount;
+    private BigDecimal paymentAmount;
+
+    @PrePersist
+    public void prePersist() {
+        timestamp = LocalDateTime.now();
+    }
 }
