@@ -5,6 +5,7 @@ import com.innowise.paymentservice.dto.response.PaymentResponse;
 import com.innowise.paymentservice.dto.response.PaymentSumResponse;
 import com.innowise.paymentservice.service.PaymentService;
 import com.innowise.paymentservice.util.Status;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<PaymentResponse> createPayment(
-            @RequestBody CreatePaymentRequest request
+            @Valid @RequestBody CreatePaymentRequest request
     ) {
         return new ResponseEntity<>(
                 paymentService.createPayment(request),
