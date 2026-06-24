@@ -1,5 +1,6 @@
 package com.innowise.paymentservice.service;
 
+import com.innowise.paymentservice.client.RandomNumberClient;
 import com.innowise.paymentservice.dto.request.CreatePaymentRequest;
 import com.innowise.paymentservice.dto.response.PaymentResponse;
 import com.innowise.paymentservice.dto.response.PaymentSumResponse;
@@ -23,9 +24,19 @@ public class PaymentService {
 
     private final PaymentMapper paymentMapper;
 
+    private final RandomNumberClient randomNumberClient;
+
     @Transactional
     public PaymentResponse createPayment(CreatePaymentRequest request) {
         Payment payment = paymentMapper.toPayment(request);
+
+        Integer randomNumber = randomNumberClient.getRandomNumber();
+
+        if (randomNumber % 2 == 0) {
+            payment.setStatus(Status.SUCCESS);
+        } else {
+            payment.setStatus(Status.FAILED);
+        }
 
         Payment savedPayment = paymentRepository.save(payment);
 
