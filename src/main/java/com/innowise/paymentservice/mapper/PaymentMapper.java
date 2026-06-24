@@ -12,7 +12,7 @@ public interface PaymentMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", ignore = true)
-    @Mapping(target = "payment", ignore = true)
+    @Mapping(target = "paymentAmount", ignore = true)
     Payment toPayment(CreatePaymentRequest createPaymentRequest);
 
     PaymentResponse toPaymentResponse(Payment payment);
