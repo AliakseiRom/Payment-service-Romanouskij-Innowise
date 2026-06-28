@@ -4,6 +4,7 @@ import com.innowise.paymentservice.client.RandomNumberClient;
 import com.innowise.paymentservice.dto.request.CreatePaymentRequest;
 import com.innowise.paymentservice.dto.response.PaymentResponse;
 import com.innowise.paymentservice.dto.response.PaymentSumResponse;
+import com.innowise.paymentservice.kafka.producer.PaymentEventProducer;
 import com.innowise.paymentservice.mapper.PaymentMapper;
 import com.innowise.paymentservice.model.Payment;
 import com.innowise.paymentservice.repository.PaymentRepository;
@@ -26,6 +27,8 @@ public class PaymentService {
 
     private final RandomNumberClient randomNumberClient;
 
+    private final PaymentEventProducer paymentEventProducer;
+
     @Transactional
     public PaymentResponse createPayment(CreatePaymentRequest request) {
         Payment payment = paymentMapper.toPayment(request);
@@ -39,6 +42,8 @@ public class PaymentService {
         }
 
         Payment savedPayment = paymentRepository.save(payment);
+
+        paymentEventProducer.sendCreatePaymentEvent(savedPayment);
 
         return paymentMapper.toPaymentResponse(savedPayment);
     }
