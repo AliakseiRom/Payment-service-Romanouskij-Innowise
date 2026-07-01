@@ -16,3 +16,6 @@ spring:
     properties:
       hibernate:
         dialect: "org.hibernate.dialect.PostgreSQLDialect"
+
+random-number-service:
+  url: https://www.randomnumberapi.com/api/v1.0/random

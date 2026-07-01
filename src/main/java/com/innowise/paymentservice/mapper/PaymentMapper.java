@@ -11,8 +11,8 @@ import org.mapstruct.Mapping;
 public interface PaymentMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "status", expression = "java(Status.SUCCESS)")
-    @Mapping(target = "payment", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "timestamp", ignore = true)
     Payment toPayment(CreatePaymentRequest createPaymentRequest);
 
     PaymentResponse toPaymentResponse(Payment payment);
