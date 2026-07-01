@@ -1,0 +1,12 @@
+target
+.git
+.github
+.idea
+*.iml
+*.log
+
+.env
+.env.*
+!.env.example
+
+docker-compose.yml
