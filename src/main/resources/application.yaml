@@ -28,3 +28,20 @@ kafka:
 
 random-number-service:
   url: https://www.randomnumberapi.com/api/v1.0/random
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
